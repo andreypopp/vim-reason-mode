@@ -22,3 +22,9 @@ Complete installation:
     Plug 'andreypopp/vim-arm'
 
 [vim-plug]: https://github.com/junegunn/vim-plug
+
+## Credits
+
+Parts of vim-arm are from other plugins, specifically:
+
+- `ftdetect`, `indent` and `syntax` are from `jordwalke/vim-reasonml`
