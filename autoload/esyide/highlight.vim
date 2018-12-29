@@ -1,9 +1,9 @@
-function! esy#highlight#clear() abort
+function! esyide#highlight#clear() abort
   let buf = bufnr("%")
   call nvim_buf_clear_highlight(buf, -1, 0, -1)
 endfunction
 
-function! esy#highlight#highlight(buf, highlight, sline, scol, eline, ecol) abort
+function! esyide#highlight#highlight(buf, highlight, sline, scol, eline, ecol) abort
   silent! call nvim_buf_clear_highlight(a:buf, -1, 0, -1)
   if a:sline == a:eline
     call nvim_buf_add_highlight(

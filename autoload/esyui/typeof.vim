@@ -1,7 +1,7 @@
 highlight! link FZFMerlinHighlight Visual
 
 function! s:show_typeof(v) abort
-  call esy#highlight#highlight(
+  call esyide#highlight#highlight(
         \ bufnr("%"),
         \ "FZFMerlinHighlight",
         \ a:v.start.line - 1,
@@ -13,7 +13,7 @@ endfunction
 
 function! s:call_merlin_typeof(verbosity, line, col) abort
   let l:fname = expand("%:p")
-  return esy#merlin#run_with_current([
+  return esyide#merlin#run_with_current([
         \   'type-enclosing'
         \ , '-filename' , fnameescape(l:fname)
         \ , '-index' , 0
@@ -54,7 +54,7 @@ function! esyui#typeof#type(...)
   let fname = expand("%:p")
   let [line, col] = getcurpos()[1:2]
   let expr = join(a:000, " ")
-  let resp = esy#merlin#run_with_current([
+  let resp = esyide#merlin#run_with_current([
           \   'type-expression'
           \ , '-expression', shellescape(expr)
           \ , '-filename' , fnameescape(fname)

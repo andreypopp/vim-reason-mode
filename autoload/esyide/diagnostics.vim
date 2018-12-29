@@ -1,14 +1,14 @@
-function! esy#diagnostics#command_callback (bufnr) abort
+function! esyide#diagnostics#command_callback (bufnr) abort
   let fname = expand("%:p")
-  return esy#cmd([
+  return esyide#cmd([
         \ 'ocamlmerlin', 'server', 'errors',
         \ '-filename', fnameescape(fname)
         \])
 endfunction
 
-function! esy#diagnostics#callback (buffer, lines) abort
+function! esyide#diagnostics#callback (buffer, lines) abort
   let l:errors = []
-  let l:json = esy#utils#strip(join(a:lines, "\n"))
+  let l:json = esyide#utils#strip(join(a:lines, "\n"))
   if l:json ==# ''
     return []
   endif
@@ -17,7 +17,7 @@ function! esy#diagnostics#callback (buffer, lines) abort
 
   if resp.class ==# 'exception'
     " TODO: log exception here
-    call ale#util#ShowMessage("esy#diagnostics: cannot query for diagnostics")
+    call ale#util#ShowMessage("esyide#diagnostics: cannot query for diagnostics")
     return []
   endif
 

@@ -1,5 +1,5 @@
 function! esyui#occurrences#find() abort
-  let b:esyui_occurrences = esy#merlin#occurrences()
+  let b:esyui_occurrences = esyide#merlin#occurrences()
   ALELint
 endfunction
 

@@ -62,7 +62,7 @@ endfunction
 
 function! esyui#outline#module_outline(...)
   let fname = expand("%:p")
-  let resp = esy#merlin#run_with_current(['outline', '-filename', l:fname])
+  let resp = esyide#merlin#run_with_current(['outline', '-filename', l:fname])
   let value = l:resp.value
 
   let lines = []
@@ -76,7 +76,7 @@ function! esyui#outline#module_outline(...)
 endfunction
 
 function! esyui#outline#modules_outline(...)
-  let resp = esy#merlin#list_modules()
+  let resp = esyide#merlin#list_modules()
   let lines = []
   call s:process(lines, resp.value.entries, [])
 
