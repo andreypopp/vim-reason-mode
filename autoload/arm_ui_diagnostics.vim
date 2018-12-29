@@ -1,13 +1,9 @@
 function! arm_ui_diagnostics#command_callback (bufnr) abort
   let fname = expand("%:p")
-  let cmd = arm_merlin#exec('server', 'errors', '-filename', fname)
-  return cmd
-endfunction
-
-function! arm_ui_diagnostics#executable_callback (bufnr) abort
-  let fname = expand("%:p")
-  let cmd = arm_merlin#exec()
-  return cmd
+  return arm_esy#cmd([
+        \ 'ocamlmerlin', 'server', 'errors',
+        \ '-filename', fnameescape(fname)
+        \])
 endfunction
 
 function! arm_ui_diagnostics#callback (buffer, lines) abort

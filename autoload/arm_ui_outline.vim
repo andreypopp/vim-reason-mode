@@ -61,18 +61,15 @@ function! s:process(lines, items, trace)
 endfunction
 
 function! arm_ui_outline#module_outline(...)
-  let l:fname = expand("%:p")
-  let l:input = join(getline(1,'$'), "\n")
-  let cmd = arm_merlin#exec('server', 'outline', '-filename', l:fname)
-  let l:data = system(cmd, l:input)
-  let l:resp = json_decode(l:data)
-  let l:value = l:resp.value
+  let fname = expand("%:p")
+  let resp = arm_merlin#run_with_current(['outline', '-filename', l:fname])
+  let value = l:resp.value
 
-  let l:lines = []
-  call s:process(l:lines, l:value, [])
+  let lines = []
+  call s:process(lines, value, [])
 
   return fzf#run(fzf#wrap('arm_outline', {
-  \ 'source':  reverse(l:lines),
+  \ 'source':  reverse(lines),
   \ 'sink':   function('s:accept'),
   \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',
   \}))

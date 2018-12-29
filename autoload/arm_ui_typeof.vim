@@ -13,18 +13,13 @@ endfunction
 
 function! s:call_merlin_typeof(verbosity, line, col) abort
   let l:fname = expand("%:p")
-  let l:input = join(getline(1,'$'), "\n")
-  let l:json = system(
-          \ arm_merlin#exec(
-          \   'server'
-          \ , 'type-enclosing'
-          \ , '-filename' , fnameescape(l:fname)
-          \ , '-index' , 0
-          \ , '-verbosity' , string(a:verbosity)
-          \ , '-position' , a:line . ':' . (a:col - 1))
-        \, l:input)
-  let l:resp = json_decode(l:json)
-  return l:resp
+  return arm_merlin#run_with_current([
+        \   'type-enclosing'
+        \ , '-filename' , fnameescape(l:fname)
+        \ , '-index' , 0
+        \ , '-verbosity' , string(a:verbosity)
+        \ , '-position' , a:line . ':' . (a:col - 1)
+        \])
 endfunction
 
 function! arm_ui_typeof#typeof(...)
@@ -58,16 +53,12 @@ endfunction
 function! arm_ui_typeof#type(...)
   let fname = expand("%:p")
   let [line, col] = getcurpos()[1:2]
-  let input = join(getline(1,'$'), "\n")
   let expr = join(a:000, " ")
-  let json = system(
-          \ arm_merlin#exec(
-          \   'server'
-          \ , 'type-expression'
+  let resp = arm_merlin#run_with_current([
+          \   'type-expression'
           \ , '-expression', shellescape(expr)
           \ , '-filename' , fnameescape(fname)
-          \ , '-position' , line . ':' . (col - 1))
-        \, l:input)
-  let resp = json_decode(json)
+          \ , '-position' , line . ':' . (col - 1)
+        \])
   call ale#util#ShowMessage(resp.value)
 endfunction
