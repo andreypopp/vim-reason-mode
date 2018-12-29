@@ -1,7 +1,7 @@
 highlight! link FZFMerlinHighlight Visual
 
 function! s:show_typeof(v) abort
-  call arm_highlight#highlight(
+  call esy#highlight#highlight(
         \ bufnr("%"),
         \ "FZFMerlinHighlight",
         \ a:v.start.line - 1,
@@ -13,7 +13,7 @@ endfunction
 
 function! s:call_merlin_typeof(verbosity, line, col) abort
   let l:fname = expand("%:p")
-  return arm_merlin#run_with_current([
+  return esy#merlin#run_with_current([
         \   'type-enclosing'
         \ , '-filename' , fnameescape(l:fname)
         \ , '-index' , 0
@@ -22,11 +22,11 @@ function! s:call_merlin_typeof(verbosity, line, col) abort
         \])
 endfunction
 
-function! arm_ui_typeof#typeof(...)
+function! esyui#typeof#typeof(...)
   let [line, col] = getcurpos()[1:2]
 
-  if exists("b:arm_typeof")
-    let prev = b:arm_typeof
+  if exists("b:esyui_typeof")
+    let prev = b:esyui_typeof
     if line == prev.line && col == prev.col
       let verbosity = prev.verbosity + 1
       let resp = s:call_merlin_typeof(verbosity, line, col)
@@ -43,18 +43,18 @@ function! arm_ui_typeof#typeof(...)
   let resp = s:call_merlin_typeof(0, line, col)
   if len(resp.value)
     let v = resp.value[0]
-    let b:arm_typeof = {'resp': resp, 'verbosity': 0, 'line': line, 'col': col}
+    let b:esyui_typeof = {'resp': resp, 'verbosity': 0, 'line': line, 'col': col}
     call s:show_typeof(v)
   else
     call ale#util#ShowMessage("<cannot query type>")
   endif
 endfunction
 
-function! arm_ui_typeof#type(...)
+function! esyui#typeof#type(...)
   let fname = expand("%:p")
   let [line, col] = getcurpos()[1:2]
   let expr = join(a:000, " ")
-  let resp = arm_merlin#run_with_current([
+  let resp = esy#merlin#run_with_current([
           \   'type-expression'
           \ , '-expression', shellescape(expr)
           \ , '-filename' , fnameescape(fname)

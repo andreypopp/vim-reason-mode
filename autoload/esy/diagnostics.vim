@@ -1,14 +1,14 @@
-function! arm_ui_diagnostics#command_callback (bufnr) abort
+function! esy#diagnostics#command_callback (bufnr) abort
   let fname = expand("%:p")
-  return arm_esy#cmd([
+  return esy#cmd([
         \ 'ocamlmerlin', 'server', 'errors',
         \ '-filename', fnameescape(fname)
         \])
 endfunction
 
-function! arm_ui_diagnostics#callback (buffer, lines) abort
+function! esy#diagnostics#callback (buffer, lines) abort
   let l:errors = []
-  let l:json = arm_utils#strip(join(a:lines, "\n"))
+  let l:json = esy#utils#strip(join(a:lines, "\n"))
   if l:json ==# ''
     return []
   endif
@@ -17,7 +17,7 @@ function! arm_ui_diagnostics#callback (buffer, lines) abort
 
   if resp.class ==# 'exception'
     " TODO: log exception here
-    call ale#util#ShowMessage("arm_ui_diagnostics: cannot query for diagnostics")
+    call ale#util#ShowMessage("esy#diagnostics: cannot query for diagnostics")
     return []
   endif
 

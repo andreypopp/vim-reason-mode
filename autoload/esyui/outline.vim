@@ -60,27 +60,27 @@ function! s:process(lines, items, trace)
   endfor
 endfunction
 
-function! arm_ui_outline#module_outline(...)
+function! esyui#outline#module_outline(...)
   let fname = expand("%:p")
-  let resp = arm_merlin#run_with_current(['outline', '-filename', l:fname])
+  let resp = esy#merlin#run_with_current(['outline', '-filename', l:fname])
   let value = l:resp.value
 
   let lines = []
   call s:process(lines, value, [])
 
-  return fzf#run(fzf#wrap('arm_outline', {
+  return fzf#run(fzf#wrap('esyui_outline', {
   \ 'source':  reverse(lines),
   \ 'sink':   function('s:accept'),
   \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',
   \}))
 endfunction
 
-function! arm_ui_outline#modules_outline(...)
-  let resp = arm_merlin#list_modules()
+function! esyui#outline#modules_outline(...)
+  let resp = esy#merlin#list_modules()
   let lines = []
   call s:process(lines, resp.value.entries, [])
 
-  return fzf#run(fzf#wrap('arm_outline', {
+  return fzf#run(fzf#wrap('esyui_outline', {
   \ 'source':  reverse(lines),
   \ 'sink':   function('s:accept'),
   \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',

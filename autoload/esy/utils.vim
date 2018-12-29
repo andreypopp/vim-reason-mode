@@ -1,3 +1,3 @@
-function! arm_utils#strip(v) abort
+function! esy#utils#strip(v) abort
   return substitute(a:v, '^[\n\s]*\(.\{-}\)[\n\s]*$', '\1', '')
 endfunction

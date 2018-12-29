@@ -1,21 +1,21 @@
-function! arm_ui_occurrences#find() abort
-  let b:arm_occurrences = arm_merlin#occurrences()
+function! esyui#occurrences#find() abort
+  let b:esyui_occurrences = esy#merlin#occurrences()
   ALELint
 endfunction
 
-function! arm_ui_occurrences#clear () abort
-  let b:arm_occurrences = {'value': []}
+function! esyui#occurrences#clear () abort
+  let b:esyui_occurrences = {'value': []}
   ALELint
 endfunction
 
-function! arm_ui_occurrences#command_callback (bufnr) abort
+function! esyui#occurrences#command_callback (bufnr) abort
   return 'true'
 endfunction
 
-function! arm_ui_occurrences#callback (buffer, lines)
+function! esyui#occurrences#callback (buffer, lines)
   let l:errors = []
 
-  let occurrences = get(b:, 'arm_occurrences', {'value': []})
+  let occurrences = get(b:, 'esyui_occurrences', {'value': []})
 
   for item in occurrences.value
     call add(l:errors, {
