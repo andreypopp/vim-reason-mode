@@ -8,7 +8,7 @@ endfunction
 
 function! esyide#diagnostics#callback (buffer, lines) abort
   let l:errors = []
-  let l:json = esyide#utils#strip(join(a:lines, "\n"))
+  let l:json = trim(join(a:lines, "\n"))
   if l:json ==# ''
     return []
   endif
