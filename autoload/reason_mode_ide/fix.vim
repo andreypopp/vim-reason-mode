@@ -1,4 +1,4 @@
-function! esyide#fix#refmt(buffer) abort
+function! reason_mode_ide#fix#refmt(buffer) abort
   let ext = expand('#' . a:buffer . ':e')
   if ext ==# 'rei'
     return {

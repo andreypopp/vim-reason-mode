@@ -60,27 +60,27 @@ function! s:process(lines, items, trace)
   endfor
 endfunction
 
-function! esyui#outline#module_outline(...)
+function! reason_mode_ui#outline#module_outline(...)
   let fname = expand("%:p")
-  let resp = esyide#merlin#run_with_current(['outline', '-filename', l:fname])
+  let resp = reason_mode_ide#merlin#run_with_current(['outline', '-filename', l:fname])
   let value = l:resp.value
 
   let lines = []
   call s:process(lines, value, [])
 
-  return fzf#run(fzf#wrap('esyui_outline', {
+  return fzf#run(fzf#wrap('reason_mode_ui_outline', {
   \ 'source':  reverse(lines),
   \ 'sink':   function('s:accept'),
   \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',
   \}))
 endfunction
 
-function! esyui#outline#modules_outline(...)
-  let resp = esyide#merlin#list_modules()
+function! reason_mode_ui#outline#modules_outline(...)
+  let resp = reason_mode_ide#merlin#list_modules()
   let lines = []
   call s:process(lines, resp.value.entries, [])
 
-  return fzf#run(fzf#wrap('esyui_outline', {
+  return fzf#run(fzf#wrap('reason_mode_ui_outline', {
   \ 'source':  reverse(lines),
   \ 'sink':   function('s:accept'),
   \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',

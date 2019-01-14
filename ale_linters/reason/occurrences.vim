@@ -1,6 +1,6 @@
 call ale#linter#Define('reason', {
-  \   'name': 'reason-esy-occurrences',
+  \   'name': 'reason-mode/reason/occurrences',
   \   'executable': 'true',
-  \   'command_callback': function('esyui#occurrences#command_callback'),
-  \   'callback': function('esyui#occurrences#callback'),
+  \   'command_callback': function('reason_mode_ui#occurrences#command_callback'),
+  \   'callback': function('reason_mode_ui#occurrences#callback'),
   \})

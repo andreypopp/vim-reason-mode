@@ -1,6 +1,6 @@
 call ale#linter#Define('reason', {
-  \   'name': 'reason-esy-codelens',
+  \   'name': 'reason-mode/reason/codelens',
   \   'executable': 'true',
-  \   'command_callback': function('esyui#codelens#command_callback'),
-  \   'callback': function('esyui#codelens#callback'),
+  \   'command_callback': function('reason_mode_ui#codelens#command_callback'),
+  \   'callback': function('reason_mode_ui#codelens#callback'),
   \})

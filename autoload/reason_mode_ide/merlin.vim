@@ -1,14 +1,14 @@
-function! esyide#merlin#exec(args) abort
-  return esyide#exec(['ocamlmerlin', 'server'] + a:args)
+function! reason_mode_ide#merlin#exec(args) abort
+  return esyapi#exec(['ocamlmerlin', 'server'] + a:args)
 endfunction
 
-function! esyide#merlin#run_with_current(args) abort
+function! reason_mode_ide#merlin#run_with_current(args) abort
   let input = join(getline(1,'$'), "\n")
-  let data = esyide#exec(['ocamlmerlin', 'server'] + a:args, input)
+  let data = esyapi#exec(['ocamlmerlin', 'server'] + a:args, input)
   return json_decode(data)
 endfunction
 
-function! esyide#merlin#complete_prefix(prefix) abort
+function! reason_mode_ide#merlin#complete_prefix(prefix) abort
   let [line, col] = getcurpos()[1:2]
   let input = join(getline(1,'$'), "\n")
   let fname = expand("%:p")
@@ -23,11 +23,11 @@ function! esyide#merlin#complete_prefix(prefix) abort
     call add(args, '-prefix')
     call add(args, a:prefix)
   endif
-  let resp = esyide#merlin#run_with_current(args)
+  let resp = reason_mode_ide#merlin#run_with_current(args)
   return resp
 endfunction
 
-function! esyide#merlin#locate() abort
+function! reason_mode_ide#merlin#locate() abort
   let [line, col] = getcurpos()[1:2]
   let input = join(getline(1,'$'), "\n")
   let fname = expand("%:p")
@@ -37,14 +37,14 @@ function! esyide#merlin#locate() abort
     \ , '-position' , line . ':' . (col - 1)
     \ , '-filename', fnameescape(fname)
     \ ]
-  let resp = esyide#merlin#run_with_current(args)
+  let resp = reason_mode_ide#merlin#run_with_current(args)
   return resp
 endfunction
 
-function! esyide#merlin#search_by_polarity(query) abort
+function! reason_mode_ide#merlin#search_by_polarity(query) abort
   let [line, col] = getcurpos()[1:2]
   let input = join(getline(1,'$'), "\n")
-  let cmd = esyide#merlin#exec([
+  let cmd = reason_mode_ide#merlin#exec([
         \   'search-by-polarity'
         \ , '-query' , string(a:query)
         \ , '-position' , line . ':' . (col - 1)
@@ -54,9 +54,9 @@ function! esyide#merlin#search_by_polarity(query) abort
   return resp
 endfunction
 
-function! esyide#merlin#list_modules() abort
+function! reason_mode_ide#merlin#list_modules() abort
   let input = join(getline(1,'$'), "\n")
-  let cmd = esyide#merlin#exec([
+  let cmd = reason_mode_ide#merlin#exec([
         \   'list-modules'
         \])
   let json = system(cmd, input)
@@ -64,10 +64,10 @@ function! esyide#merlin#list_modules() abort
   return resp
 endfunction
 
-function! esyide#merlin#occurrences() abort
+function! reason_mode_ide#merlin#occurrences() abort
   let [line, col] = getcurpos()[1:2]
   let fname = expand("%:p")
-  let json = esyide#merlin#run_with_current([
+  let json = reason_mode_ide#merlin#run_with_current([
         \   'occurrences'
         \ , '-filename', fnameescape(fname)
         \ , '-identifier-at', line . ':' . (col - 1)
@@ -75,9 +75,9 @@ function! esyide#merlin#occurrences() abort
   return json
 endfunction
 
-function! esyide#merlin#outline() abort
+function! reason_mode_ide#merlin#outline() abort
   let fname = expand("%:p")
-  let json = esyide#merlin#run_with_current([
+  let json = reason_mode_ide#merlin#run_with_current([
         \   'outline'
         \ , '-filename', fnameescape(fname)
         \])

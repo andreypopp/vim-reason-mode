@@ -1,9 +1,9 @@
 function! s:get_ns(buffer) abort
-  if get(b:, 'esyui_codelens_ns', -1) == -1
+  if get(b:, 'reason_mode_ui_codelens_ns', -1) == -1
       " NOTE: This will highlights nothing but will allocate new id
-      let b:esyui_codelens_ns = nvim_buf_add_highlight(a:buffer, 0, '', 0, 0, -1)
+      let b:reason_mode_ui_codelens_ns = nvim_buf_add_highlight(a:buffer, 0, '', 0, 0, -1)
   endif
-  return b:esyui_codelens_ns
+  return b:reason_mode_ui_codelens_ns
 endfunction
 
 function! s:process(ns, buffer, items) abort
@@ -19,24 +19,24 @@ function! s:process(ns, buffer, items) abort
 endfunction
 
 function! s:clear(buffer) abort
-  let b:esyui_codelens_items = {'value': []}
+  let b:reason_mode_ui_codelens_items = {'value': []}
   let ns = s:get_ns(a:buffer)
   call nvim_buf_clear_namespace(a:buffer, ns, 0, -1)
 endfunction
 
-function! esyui#codelens#command_callback (bufnr) abort
-  let b:esyui_codelens_items = esyide#merlin#outline()
+function! reason_mode_ui#codelens#command_callback (bufnr) abort
+  let b:reason_mode_ui_codelens_items = reason_mode_ide#merlin#outline()
   return 'true'
 endfunction
 
-function! esyui#codelens#callback (buffer, lines)
-  let codelens = get(b:, 'esyui_codelens_items', {'value': []})
+function! reason_mode_ui#codelens#callback (buffer, lines)
+  let codelens = get(b:, 'reason_mode_ui_codelens_items', {'value': []})
 
   call s:clear(a:buffer)
   let ns = s:get_ns(a:buffer)
   call s:process(ns, a:buffer, codelens.value)
 
-  let b:esyui_codelens_items = {'value': []}
+  let b:reason_mode_ui_codelens_items = {'value': []}
 
   return []
 endfunction

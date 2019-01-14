@@ -1,6 +1,6 @@
 call ale#linter#Define('ocaml', {
-  \   'name': 'ocaml-esy-occurrences',
+  \   'name': 'reason-mode/ocaml/occurrences',
   \   'executable': 'true',
-  \   'command_callback': function('esyui#occurrences#command_callback'),
-  \   'callback': function('esyui#occurrences#callback'),
+  \   'command_callback': function('reason_mode_ui#occurrences#command_callback'),
+  \   'callback': function('reason_mode_ui#occurrences#callback'),
   \})

@@ -1,14 +1,14 @@
-function! esyide#highlight#clear() abort
+function! reason_mode_ide#highlight#clear() abort
   let buf = bufnr("%")
   call nvim_buf_clear_highlight(buf, -1, 0, -1)
 endfunction
 
-function! esyide#highlight#clear_ns(ns) abort
+function! reason_mode_ide#highlight#clear_ns(ns) abort
   let buf = bufnr("%")
   call nvim_buf_clear_highlight(buf, a:ns, 0, -1)
 endfunction
 
-function! esyide#highlight#highlight(ns, buf, highlight, sline, scol, eline, ecol) abort
+function! reason_mode_ide#highlight#highlight(ns, buf, highlight, sline, scol, eline, ecol) abort
   silent! call nvim_buf_clear_highlight(a:buf, a:ns, 0, -1)
   if a:sline == a:eline
     call nvim_buf_add_highlight(

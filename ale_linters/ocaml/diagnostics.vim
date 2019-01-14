@@ -1,6 +1,6 @@
 call ale#linter#Define('ocaml', {
-  \   'name': 'ocaml-esy-diagnostics',
+  \   'name': 'reason-mode/ocaml/diagnostics',
   \   'executable': 'true',
-  \   'command_callback': function('esyide#diagnostics#command_callback'),
-  \   'callback': function('esyide#diagnostics#callback'),
+  \   'command_callback': function('reason_mode_ide#diagnostics#command_callback'),
+  \   'callback': function('reason_mode_ide#diagnostics#callback'),
   \})

@@ -1,7 +1,7 @@
-command! -bang EsyIDEModuleOutline call esyui#outline#module_outline(<bang>0)
-command! -bang EsyIDETypeOf call esyui#typeof#typeof(<bang>0)
-command! -nargs=+ EsyIDEType call esyui#typeof#type(<f-args>)
-command! -nargs=0 -bang EsyIDEOccurrences call esyui#occurrences#find()
-command! -nargs=0 -bang EsyIDEJumpToDefinition call esyui#locate#jumpToDefintion()
+command! -bang ReasonModeModuleOutline call reason_mode_ui#outline#module_outline(<bang>0)
+command! -bang ReasonModeTypeOf call reason_mode_ui#typeof#typeof(<bang>0)
+command! -nargs=+ ReasonModeType call reason_mode_ui#typeof#type(<f-args>)
+command! -nargs=0 -bang ReasonModeOccurrences call reason_mode_ui#occurrences#find()
+command! -nargs=0 -bang ReasonModeJumpToDefinition call reason_mode_ui#locate#jumpToDefintion()
 
-setlocal omnifunc=esyui#completion#omnifunc
+setlocal omnifunc=reason_mode_ui#completion#omnifunc

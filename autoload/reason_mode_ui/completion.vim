@@ -1,6 +1,6 @@
 " copied from merlin runtime
 
-function! esyui#completion#omnifunc(findstart, base)
+function! reason_mode_ui#completion#omnifunc(findstart, base)
   if a:findstart
     " Synchronize merlin before completion, since vim modify the buffer
     " (prefix is removed)
@@ -37,7 +37,7 @@ function! esyui#completion#omnifunc(findstart, base)
     endif
 
     " Query completion
-    let s:compl_result = esyide#merlin#complete_prefix(s:compl_base)
+    let s:compl_result = reason_mode_ide#merlin#complete_prefix(s:compl_base)
 
     if lastword == -1
       return start

@@ -1,16 +1,16 @@
 highlight! link FZFMerlinHighlight Visual
 
 function! s:get_ns(buffer) abort
-  if get(b:, 'esyui_typeof_ns', -1) == -1
+  if get(b:, 'reason_mode_ui_typeof_ns', -1) == -1
       " NOTE: This will highlights nothing but will allocate new id
-      let b:esyui_typeof_ns = nvim_buf_add_highlight(a:buffer, 0, '', 0, 0, -1)
+      let b:reason_mode_ui_typeof_ns = nvim_buf_add_highlight(a:buffer, 0, '', 0, 0, -1)
   endif
-  return b:esyui_typeof_ns
+  return b:reason_mode_ui_typeof_ns
 endfunction
 
 function! s:show_typeof(v) abort
   let ns = s:get_ns(bufnr('%'))
-  call esyide#highlight#highlight(
+  call reason_mode_ide#highlight#highlight(
         \ ns,
         \ bufnr("%"),
         \ "FZFMerlinHighlight",
@@ -23,7 +23,7 @@ endfunction
 
 function! s:call_merlin_typeof(verbosity, line, col) abort
   let l:fname = expand("%:p")
-  return esyide#merlin#run_with_current([
+  return reason_mode_ide#merlin#run_with_current([
         \   'type-enclosing'
         \ , '-filename' , fnameescape(l:fname)
         \ , '-index' , 0
@@ -32,11 +32,11 @@ function! s:call_merlin_typeof(verbosity, line, col) abort
         \])
 endfunction
 
-function! esyui#typeof#typeof(...)
+function! reason_mode_ui#typeof#typeof(...)
   let [line, col] = getcurpos()[1:2]
 
-  if exists("b:esyui_typeof")
-    let prev = b:esyui_typeof
+  if exists("b:reason_mode_ui_typeof")
+    let prev = b:reason_mode_ui_typeof
     if line == prev.line && col == prev.col
       let verbosity = prev.verbosity + 1
       let resp = s:call_merlin_typeof(verbosity, line, col)
@@ -53,18 +53,18 @@ function! esyui#typeof#typeof(...)
   let resp = s:call_merlin_typeof(0, line, col)
   if len(resp.value)
     let v = resp.value[0]
-    let b:esyui_typeof = {'resp': resp, 'verbosity': 0, 'line': line, 'col': col}
+    let b:reason_mode_ui_typeof = {'resp': resp, 'verbosity': 0, 'line': line, 'col': col}
     call s:show_typeof(v)
   else
     call ale#util#ShowMessage("<cannot query type>")
   endif
 endfunction
 
-function! esyui#typeof#type(...)
+function! reason_mode_ui#typeof#type(...)
   let fname = expand("%:p")
   let [line, col] = getcurpos()[1:2]
   let expr = join(a:000, " ")
-  let resp = esyide#merlin#run_with_current([
+  let resp = reason_mode_ide#merlin#run_with_current([
           \   'type-expression'
           \ , '-expression', shellescape(expr)
           \ , '-filename' , fnameescape(fname)
