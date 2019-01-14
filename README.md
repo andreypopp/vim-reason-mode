@@ -2,9 +2,10 @@
 
 vim-reason-mode is yet another vim mode for Reason/OCaml.
 
-**WARNING:** This vim plugin is highly experimental and I do not recommend using
-it. Instead use excellent [jordwalke/vim-reasonml][] which works well out of the
-box and does not require any external dependencies.
+**WARNING: This vim plugin is highly experimental and I do not recommend using
+it. Instead use excellent [jordwalke/vim-reasonml][].**
+
+**WARNING: Currently vim-reason-mode works only with [esy][] projects.**
 
 ## Motivation
 
@@ -23,6 +24,10 @@ The reasons are:
 ## Installation
 
 I use [vim-plug][] and recomment it unless you settled on other option.
+
+Install [esy][]:
+
+    npm install -g esy
 
 Minimal installation:
 
@@ -97,3 +102,4 @@ Parts of vim-reason-mode are from other plugins, specifically:
 
 [jordwalke/vim-reasonml]: https://github.com/jordwalke/vim-reasonml
 [ALE]: https://github.com/w0rp/ale
+[esy]: https://esy.sh
