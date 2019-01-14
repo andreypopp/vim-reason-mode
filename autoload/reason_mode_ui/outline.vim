@@ -1,5 +1,5 @@
 function! s:accept(line)
-  let find = '\(\d\+\):\(\d\+\) '
+  let find = '\(\d\+\) \(\d\+\) '
   let m = matchstr(a:line, find)
   let line = substitute(m, find, '\1', '')
   let col = substitute(m, find, '\2', '')
@@ -38,7 +38,7 @@ function! s:process(lines, items, trace)
     endif
     if has_key(l:item, 'start')
       let l:line = printf(
-              \ "%d:%d %s%s",
+              \ "%d %d %s%s",
               \ l:item.start.line,
               \ l:item.start.col,
               \ l:prev,
@@ -69,9 +69,16 @@ function! reason_mode_ui#outline#module_outline(...)
   call s:process(lines, value, [])
 
   return fzf#run(fzf#wrap('reason_mode_ui_outline', {
-  \ 'source':  reverse(lines),
+  \ 'source':  lines,
   \ 'sink':   function('s:accept'),
-  \ 'options': '--no-multi --tiebreak=index --header-lines=0 -d " " --with-nth "2.." --prompt="MerlinOutline> "',
+  \ 'options': join([
+    \ '--no-multi',
+    \ '--tiebreak=index',
+    \ '--header-lines=0',
+    \ '-d " "',
+    \ '--with-nth="3.."',
+    \ '--prompt="MerlinOutline> "'
+    \ ], ' ')
   \}))
 endfunction
 
