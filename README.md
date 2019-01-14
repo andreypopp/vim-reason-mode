@@ -13,7 +13,7 @@ Minimal installation:
 
 Complete installation:
 
-    Plug 'junegunn/fzf'              " needed for :ArmModuleOutline
+    Plug 'junegunn/fzf'              " needed for :ReasonModeModuleOutline
     Plug 'junegunn/fzf.vim'
 
     Plug 'w0rp/ale'                  " needed for diagnostics
