@@ -1,6 +1,7 @@
-# vim-arm
+# vim-reason-mode
 
-vim-arm makes editing Reason/OCaml code with vim a breeze.
+vim-reason-mode is another vim mode for Reason/OCaml, uses merlin under the
+hood.
 
 ## Installation
 
@@ -8,7 +9,7 @@ I use [vim-plug][] and recomment it unless you settled on other option.
 
 Minimal installation:
 
-    Plug 'andreypopp/vim-arm'
+    Plug 'andreypopp/vim-reason-mode'
 
 Complete installation:
 
@@ -19,12 +20,12 @@ Complete installation:
 
     Plug 'lifepillar/vim-mucomplete' " needed for autocomplete
 
-    Plug 'andreypopp/vim-arm'
+    Plug 'andreypopp/vim-reason-mode'
 
 [vim-plug]: https://github.com/junegunn/vim-plug
 
 ## Credits
 
-Parts of vim-arm are from other plugins, specifically:
+Parts of vim-reason-mode are from other plugins, specifically:
 
 - `ftdetect`, `indent` and `syntax` are from `jordwalke/vim-reasonml`
