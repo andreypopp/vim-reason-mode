@@ -19,24 +19,29 @@ function! s:process(ns, buffer, items) abort
 endfunction
 
 function! s:clear(buffer) abort
-  let b:reason_mode_ui_codelens_items = {'value': []}
   let ns = s:get_ns(a:buffer)
   call nvim_buf_clear_namespace(a:buffer, ns, 0, -1)
 endfunction
 
-function! reason_mode_ui#codelens#command_callback (bufnr) abort
-  let b:reason_mode_ui_codelens_items = reason_mode_ide#merlin#outline()
-  return 'true'
+function! reason_mode_ui#codelens#command_callback (buffer) abort
+  let fname = expand(a:buffer . ':p')
+  return esyapi#cmd([
+        \ 'ocamlmerlin', 'server', 'outline',
+        \ '-filename', fnameescape(fname)
+        \])
 endfunction
 
 function! reason_mode_ui#codelens#callback (buffer, lines)
-  let codelens = get(b:, 'reason_mode_ui_codelens_items', {'value': []})
+
+  let json = trim(join(a:lines, "\n"))
+  if json ==# ''
+    return []
+  endif
+  let resp = json_decode(json)
 
   call s:clear(a:buffer)
   let ns = s:get_ns(a:buffer)
-  call s:process(ns, a:buffer, codelens.value)
-
-  let b:reason_mode_ui_codelens_items = {'value': []}
+  call s:process(ns, a:buffer, resp.value)
 
   return []
 endfunction
