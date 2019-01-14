@@ -28,5 +28,7 @@ function! esyui#occurrences#callback (buffer, lines)
           \ })
   endfor
 
+  let b:esyui_occurrences = {'value': []}
+
   return l:errors
 endfunction

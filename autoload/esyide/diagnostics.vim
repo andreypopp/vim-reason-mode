@@ -13,6 +13,8 @@ function! esyide#diagnostics#callback (buffer, lines) abort
     return []
   endif
 
+  " TODO: remove line below
+  " echom ('|' . string(l:json) . '|')
   let resp = json_decode(l:json)
 
   if resp.class ==# 'exception'

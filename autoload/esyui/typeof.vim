@@ -1,7 +1,17 @@
 highlight! link FZFMerlinHighlight Visual
 
+function! s:get_ns(buffer) abort
+  if get(b:, 'esyui_typeof_ns', -1) == -1
+      " NOTE: This will highlights nothing but will allocate new id
+      let b:esyui_typeof_ns = nvim_buf_add_highlight(a:buffer, 0, '', 0, 0, -1)
+  endif
+  return b:esyui_typeof_ns
+endfunction
+
 function! s:show_typeof(v) abort
+  let ns = s:get_ns(bufnr('%'))
   call esyide#highlight#highlight(
+        \ ns,
         \ bufnr("%"),
         \ "FZFMerlinHighlight",
         \ a:v.start.line - 1,
