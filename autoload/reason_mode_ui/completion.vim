@@ -50,9 +50,9 @@ function! reason_mode_ui#completion#omnifunc(findstart, base)
   for entry in s:compl_result.value.entries
     call add(words, {
           \ 'word': entry.name,
-          \ 'menu': tolower(entry.kind),
+          \ 'menu': entry.desc,
           \ 'info': '',
-          \ 'kind': '',
+          \ 'kind': toupper(entry.kind[0]),
           \ })
   endfor
 
