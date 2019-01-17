@@ -14,7 +14,7 @@ Why another vim plugin while merlin comes with one and
 
 The reasons are:
 
-- This serves as a playgroun for new feature such as codelens using neovim's
+- This serves as a playground for new feature such as codelens using neovim's
   virtualtext feature.
 
 - This plugin doesn't require Python, it's implemented in pure VimL instead.
@@ -23,7 +23,7 @@ The reasons are:
 
 ## Installation
 
-I use [vim-plug][] and recomment it unless you settled on other option.
+I use [vim-plug][] and recommend it unless you settled on other option.
 
 Install [esy][]:
 
@@ -31,16 +31,20 @@ Install [esy][]:
 
 Minimal installation:
 
-    Plug 'andreypopp/vim-reason-mode'
+    Plug 'rgrinberg/vim-ocaml'           " syntax, indent for ocaml
+    Plug 'andreypopp/vim-reason-runtime' " syntax, indent for reason
+    Plug 'andreypopp/vim-reason-mode'    " this plugin
 
 Complete installation:
 
-    Plug 'junegunn/fzf'              " needed for :ReasonModeModuleOutline
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'              " needed for :ReasonModeModuleOutline
 
-    Plug 'w0rp/ale'                  " needed for diagnostics
+    Plug 'w0rp/ale'                      " needed for diagnostics
 
-    Plug 'andreypopp/vim-reason-mode'
+    Plug 'rgrinberg/vim-ocaml'           " syntax, indent for ocaml
+    Plug 'andreypopp/vim-reason-runtime' " syntax, indent for reason
+    Plug 'andreypopp/vim-reason-mode'    " this plugin
 
 [vim-plug]: https://github.com/junegunn/vim-plug
 
@@ -51,7 +55,7 @@ You need to edit your `.vimrc` to enable specific features.
 
 ### Diagnostics
 
-Diagnostics is implemnted using [ALE][] and thus you need to have it installed and then enable
+Diagnostics is implemented using [ALE][] and thus you need to have it installed and then enable
 corresponding linters in `.vimrc`:
 
 ```
